@@ -1,0 +1,708 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #ffffff;
+  position: relative;
+  font-family: 'Courier New', monospace;
+}
+
+.backButton {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  font-size: 20px;
+  color: #00ffff;
+  text-decoration: none;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #00ffff;
+  border-radius: 0;
+  transition: all 0.15s;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+.backButton:hover {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.8);
+  border-color: #00ffff;
+}
+
+.desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 70px;
+  background: linear-gradient(145deg, rgba(20, 25, 40, 1) 0%, rgba(15, 20, 35, 1) 100%);
+  border-bottom: 2px solid rgba(64, 224, 208, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding: 0 50px;
+  z-index: 9999;
+  box-shadow: 
+    0 0 40px rgba(64, 224, 208, 0.5),
+    0 0 60px rgba(138, 43, 226, 0.3),
+    0 4px 30px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(15px);
+}
+
+.toolbarButton {
+  background: linear-gradient(145deg, rgba(40, 60, 100, 1) 0%, rgba(30, 50, 80, 1) 100%);
+  color: #88ffff;
+  border: 2px solid rgba(64, 224, 208, 1);
+  padding: 14px 32px;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 40px rgba(64, 224, 208, 0.9),
+    0 0 60px rgba(138, 43, 226, 0.6),
+    0 0 80px rgba(0, 255, 255, 0.4),
+    inset 0 0 20px rgba(64, 224, 208, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.7);
+  text-shadow: 
+    0 0 15px rgba(136, 255, 255, 1),
+    0 0 25px rgba(136, 255, 255, 0.9),
+    0 0 40px rgba(136, 255, 255, 0.7);
+}
+
+.toolbarButton::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, 
+    rgba(64, 224, 208, 0.8), 
+    rgba(138, 43, 226, 0.8), 
+    rgba(0, 255, 255, 0.8),
+    rgba(64, 224, 208, 0.8));
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0.6;
+  animation: borderFlow 3s linear infinite;
+  border-radius: inherit;
+}
+
+.toolbarButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.toolbarButton:hover::after {
+  left: 100%;
+}
+
+.toolbarButton:hover {
+  background: linear-gradient(145deg, rgba(50, 70, 120, 1) 0%, rgba(40, 60, 100, 1) 100%);
+  border-color: rgba(64, 224, 208, 1);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 80px rgba(64, 224, 208, 1),
+    0 0 120px rgba(138, 43, 226, 0.8),
+    0 0 150px rgba(0, 255, 255, 0.6),
+    0 0 200px rgba(64, 224, 208, 0.3),
+    inset 0 0 25px rgba(64, 224, 208, 0.3),
+    0 8px 30px rgba(0, 0, 0, 0.9);
+  text-shadow: 
+    0 0 20px rgba(136, 255, 255, 1),
+    0 0 40px rgba(136, 255, 255, 1),
+    0 0 60px rgba(136, 255, 255, 0.9);
+}
+
+.toolbarButton:hover::before {
+  opacity: 1;
+}
+
+.toolbarButton:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 40px rgba(64, 224, 208, 0.7),
+    0 0 60px rgba(138, 43, 226, 0.5),
+    inset 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+@keyframes borderFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.toolbarCheckbox {
+  color: #88ffff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-left: 30px;
+  cursor: pointer;
+  text-shadow: 
+    0 0 10px rgba(136, 255, 255, 0.9),
+    0 0 20px rgba(136, 255, 255, 0.7);
+  padding: 8px 16px;
+  background: rgba(40, 60, 100, 0.8);
+  border: 1px solid rgba(64, 224, 208, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(64, 224, 208, 0.5);
+}
+
+.toolbarCheckbox:hover {
+  background: rgba(25, 35, 55, 0.8);
+  border-color: rgba(64, 224, 208, 0.9);
+  box-shadow: 0 0 25px rgba(64, 224, 208, 0.7);
+}
+
+.toolbarCheckbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #00ffff;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+/* Window Styles */
+.window {
+  position: absolute;
+  background: linear-gradient(145deg, rgba(15, 15, 30, 0.98) 0%, rgba(10, 10, 25, 0.98) 100%);
+  border: 2px solid rgba(64, 224, 208, 0.9);
+  box-shadow: 
+    0 0 40px rgba(64, 224, 208, 0.6),
+    0 0 60px rgba(138, 43, 226, 0.4),
+    0 0 80px rgba(0, 255, 255, 0.2),
+    inset 0 0 40px rgba(0, 255, 255, 0.08),
+    0 8px 30px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.2s;
+  backdrop-filter: blur(15px);
+}
+
+.window.active {
+  border-color: rgba(64, 224, 208, 1);
+  box-shadow: 
+    0 0 60px rgba(64, 224, 208, 0.9),
+    0 0 90px rgba(138, 43, 226, 0.6),
+    0 0 120px rgba(0, 255, 255, 0.4),
+    inset 0 0 50px rgba(0, 255, 255, 0.12),
+    0 10px 40px rgba(0, 0, 0, 0.9);
+}
+
+.window.minimized {
+  height: 35px !important;
+  min-height: 35px;
+}
+
+.windowTitleBar {
+  height: 40px;
+  background: linear-gradient(145deg, rgba(20, 30, 50, 0.95) 0%, rgba(15, 25, 40, 0.95) 100%);
+  border-bottom: 2px solid rgba(64, 224, 208, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  cursor: move;
+  user-select: none;
+  box-shadow: 
+    0 2px 15px rgba(64, 224, 208, 0.3),
+    inset 0 1px 0 rgba(0, 255, 255, 0.2);
+}
+
+.windowTitle {
+  color: #88ffff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 
+    0 0 12px rgba(136, 255, 255, 1),
+    0 0 24px rgba(136, 255, 255, 0.9),
+    0 0 36px rgba(136, 255, 255, 0.7);
+}
+
+.windowControls {
+  display: flex;
+  gap: 8px;
+}
+
+.windowButton {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(145deg, rgba(40, 60, 100, 1) 0%, rgba(30, 50, 80, 1) 100%);
+  border: 2px solid rgba(64, 224, 208, 0.8);
+  color: #88ffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 15px rgba(64, 224, 208, 0.5),
+    0 0 25px rgba(138, 43, 226, 0.3),
+    inset 0 0 10px rgba(64, 224, 208, 0.2);
+  text-shadow: 
+    0 0 5px rgba(136, 255, 255, 0.9),
+    0 0 10px rgba(136, 255, 255, 0.7);
+}
+
+.windowButton:hover {
+  background: linear-gradient(145deg, rgba(50, 70, 120, 1) 0%, rgba(40, 60, 100, 1) 100%);
+  border-color: rgba(64, 224, 208, 1);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 0 30px rgba(64, 224, 208, 0.8),
+    0 0 50px rgba(138, 43, 226, 0.5),
+    0 0 70px rgba(0, 255, 255, 0.3),
+    inset 0 0 15px rgba(64, 224, 208, 0.3);
+  text-shadow: 
+    0 0 10px rgba(136, 255, 255, 1),
+    0 0 20px rgba(136, 255, 255, 0.9);
+}
+
+.windowButton.closeButton:hover {
+  background: linear-gradient(145deg, rgba(35, 10, 20, 0.98) 0%, rgba(25, 5, 15, 0.99) 100%);
+  border-color: rgba(255, 0, 100, 1);
+  color: #ff0066;
+  box-shadow: 
+    0 0 30px rgba(255, 0, 100, 0.8),
+    0 0 50px rgba(255, 20, 120, 0.6),
+    0 0 70px rgba(255, 50, 150, 0.4),
+    inset 0 0 15px rgba(0, 0, 0, 0.6);
+  text-shadow: 
+    0 0 10px rgba(255, 0, 100, 1),
+    0 0 20px rgba(255, 0, 100, 0.6);
+}
+
+.windowContent {
+  flex: 1;
+  overflow: auto;
+  background: linear-gradient(145deg, rgba(10, 10, 20, 0.98) 0%, rgba(5, 5, 15, 0.98) 100%);
+  position: relative;
+}
+
+/* Resize Handles */
+.resizeHandle {
+  position: absolute;
+  z-index: 10;
+  background: transparent;
+}
+
+.resizeHandle:nth-child(1),
+.resizeHandle:nth-child(2),
+.resizeHandle:nth-child(3),
+.resizeHandle:nth-child(4) {
+  width: 8px;
+  height: 8px;
+}
+
+.resizeHandle:nth-child(5),
+.resizeHandle:nth-child(6) {
+  height: 8px;
+}
+
+.resizeHandle:nth-child(7),
+.resizeHandle:nth-child(8) {
+  width: 8px;
+}
+
+.resizeHandle:hover {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+/* Text Editor Styles */
+.textEditor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, rgba(10, 10, 20, 0.98) 0%, rgba(5, 5, 15, 0.98) 100%);
+}
+
+.textEditor .toolbar {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  height: 50px;
+  background: linear-gradient(145deg, rgba(20, 30, 50, 0.95) 0%, rgba(15, 25, 40, 0.95) 100%);
+  border-bottom: 2px solid rgba(64, 224, 208, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 8px 18px;
+  box-shadow: 
+    0 2px 15px rgba(64, 224, 208, 0.3),
+    inset 0 1px 0 rgba(0, 255, 255, 0.2);
+}
+
+.toolbarBtn {
+  background: linear-gradient(145deg, rgba(40, 60, 100, 1) 0%, rgba(30, 50, 80, 1) 100%);
+  border: 2px solid rgba(64, 224, 208, 0.8);
+  color: #88ffff;
+  padding: 8px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 20px rgba(64, 224, 208, 0.5),
+    0 0 35px rgba(138, 43, 226, 0.3),
+    inset 0 0 15px rgba(64, 224, 208, 0.2);
+  text-shadow: 
+    0 0 8px rgba(136, 255, 255, 0.9),
+    0 0 15px rgba(136, 255, 255, 0.7);
+}
+
+.toolbarBtn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(64, 224, 208, 0.8), 
+    rgba(138, 43, 226, 0.8), 
+    rgba(0, 255, 255, 0.8),
+    rgba(64, 224, 208, 0.8));
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0.5;
+  animation: borderFlow 3s linear infinite;
+}
+
+.toolbarBtn:hover {
+  background: linear-gradient(145deg, rgba(50, 70, 120, 1) 0%, rgba(40, 60, 100, 1) 100%);
+  border-color: rgba(64, 224, 208, 1);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 0 40px rgba(64, 224, 208, 0.8),
+    0 0 60px rgba(138, 43, 226, 0.5),
+    0 0 80px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(64, 224, 208, 0.3);
+  text-shadow: 
+    0 0 12px rgba(136, 255, 255, 1),
+    0 0 25px rgba(136, 255, 255, 0.9);
+}
+
+.toolbarBtn:hover::before {
+  opacity: 1;
+}
+
+.toolbarBtn:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 30px rgba(64, 224, 208, 0.6),
+    0 0 50px rgba(138, 43, 226, 0.4),
+    inset 0 0 18px rgba(0, 0, 0, 0.7);
+}
+
+.textEditorContent {
+  flex: 1;
+  padding: 25px;
+  color: #66ffff;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  outline: none;
+  overflow-y: auto;
+  background: linear-gradient(145deg, rgba(10, 10, 20, 0.98) 0%, rgba(5, 5, 15, 0.98) 100%);
+}
+
+.textEditorContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.textEditorContent::-webkit-scrollbar-track {
+  background: rgba(0, 20, 40, 0.3);
+}
+
+.textEditorContent::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+}
+
+.textEditorContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.5);
+}
+
+.textEditorContent h1 {
+  color: #00ffff;
+  font-size: 22px;
+  margin: 15px 0;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.textEditorContent h2 {
+  color: #00ffff;
+  font-size: 18px;
+  margin: 12px 0;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.textEditorContent strong {
+  color: #00ffff;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
+}
+
+.textEditorContent em {
+  color: #66ffff;
+  font-style: italic;
+}
+
+.textEditorContent ul,
+.textEditorContent ol {
+  margin: 12px 0;
+  padding-left: 30px;
+}
+
+.textEditorContent li {
+  margin: 6px 0;
+  color: #00ffff;
+}
+
+/* Canvas Editor Styles */
+.canvasEditor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, rgba(10, 10, 20, 0.98) 0%, rgba(5, 5, 15, 0.98) 100%);
+}
+
+.canvasToolbar {
+  position: relative;
+  height: 60px;
+  background: linear-gradient(145deg, rgba(20, 30, 50, 0.95) 0%, rgba(15, 25, 40, 0.95) 100%);
+  border-bottom: 2px solid rgba(64, 224, 208, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 25px;
+  padding: 8px 25px;
+  flex-shrink: 0;
+  box-shadow: 
+    0 2px 15px rgba(64, 224, 208, 0.3),
+    inset 0 1px 0 rgba(0, 255, 255, 0.2);
+}
+
+.canvasToolGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #88ffff;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 
+    0 0 8px rgba(136, 255, 255, 0.9),
+    0 0 16px rgba(136, 255, 255, 0.7);
+}
+
+.canvasToolGroup label {
+  font-weight: 700;
+}
+
+.colorInput {
+  width: 36px;
+  height: 28px;
+  border: 1px solid #00ffff;
+  background: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+  transition: all 0.15s;
+}
+
+.colorInput:hover {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+.widthSlider {
+  width: 100px;
+  accent-color: #00ffff;
+}
+
+.canvasBtn {
+  background: linear-gradient(145deg, rgba(40, 60, 100, 1) 0%, rgba(30, 50, 80, 1) 100%);
+  border: 2px solid rgba(64, 224, 208, 0.8);
+  color: #88ffff;
+  padding: 8px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 20px rgba(64, 224, 208, 0.5),
+    0 0 35px rgba(138, 43, 226, 0.3),
+    inset 0 0 15px rgba(64, 224, 208, 0.2);
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 
+    0 0 8px rgba(136, 255, 255, 0.9),
+    0 0 15px rgba(136, 255, 255, 0.7);
+}
+
+.canvasBtn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(64, 224, 208, 0.8), 
+    rgba(138, 43, 226, 0.8), 
+    rgba(0, 255, 255, 0.8),
+    rgba(64, 224, 208, 0.8));
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0.5;
+  animation: borderFlow 3s linear infinite;
+}
+
+.canvasBtn:hover:not(:disabled) {
+  background: linear-gradient(145deg, rgba(50, 70, 120, 1) 0%, rgba(40, 60, 100, 1) 100%);
+  border-color: rgba(64, 224, 208, 1);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 0 40px rgba(64, 224, 208, 0.8),
+    0 0 60px rgba(138, 43, 226, 0.5),
+    0 0 80px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(64, 224, 208, 0.3);
+  text-shadow: 
+    0 0 12px rgba(136, 255, 255, 1),
+    0 0 25px rgba(136, 255, 255, 0.9);
+}
+
+.canvasBtn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.canvasBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: rgba(64, 224, 208, 0.3);
+  box-shadow: 0 0 10px rgba(64, 224, 208, 0.2);
+}
+
+.canvasBtn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 30px rgba(64, 224, 208, 0.6),
+    0 0 50px rgba(138, 43, 226, 0.4),
+    inset 0 0 18px rgba(0, 0, 0, 0.7);
+}
+
+.canvas {
+  flex: 1;
+  background: #ffffff;
+  cursor: crosshair;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scanline effect removed for white background */
+
+/* Glow animations - Tron style */
+@keyframes tronGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.3),
+      inset 0 0 30px rgba(0, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 35px rgba(0, 255, 255, 0.5),
+      inset 0 0 45px rgba(0, 255, 255, 0.08);
+  }
+}
+
+.window.active {
+  animation: tronGlow 3s ease-in-out infinite;
+}
+
+/* Grid lines animation removed for white background */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 60px;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+  
+  .toolbarButton {
+    font-size: 10px;
+    padding: 8px 18px;
+    letter-spacing: 2px;
+  }
+  
+  .window {
+    min-width: 300px;
+    min-height: 200px;
+  }
+}

@@ -16,6 +16,16 @@ export default function Home() {
       description: 'An interactive button that creates a colorful confetti explosion',
       path: '/prototypes/confetti-button'
     },
+    {
+      title: 'Digital Piano',
+      description: 'A retro digital piano with old Mac OS styling and synth controls',
+      path: '/prototypes/digital-piano'
+    },
+    {
+      title: 'Noted OS',
+      description: 'A window-based note-taking app with cyberpunk aesthetics, featuring draggable windows, rich text editing, and drawing canvas',
+      path: '/prototypes/noted-os'
+    },
     // Add your new prototypes here like this:
     // {
     //   title: 'Your new prototype',
