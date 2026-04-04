@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import styles from './styles/home.module.css';
 import { instrumentSans } from './fonts';
 
@@ -25,6 +24,31 @@ export default function Home() {
       title: 'Noted OS',
       description: 'A window-based note-taking app with cyberpunk aesthetics, featuring draggable windows, rich text editing, and drawing canvas',
       path: '/prototypes/noted-os'
+    },
+    {
+      title: 'Presentation Viewer',
+      description: 'A click-through mockup of a presentation viewer interface highlighting key features like slide navigation, task organization, and real-time collaboration',
+      path: '/prototypes/presentation-viewer'
+    },
+    {
+      title: 'Feedback Widget',
+      description: 'Floating feedback button with 1–5 severity scale, file attachment, and Slack CR team notification. Ready to port to Onebrief.',
+      path: '/prototypes/feedback-widget'
+    },
+    {
+      title: 'Personal Brand',
+      description: 'Defense-tech themed personal brand site with hero, project showcase, design gallery, and contact section. Military HUD aesthetic.',
+      path: '/prototypes/personal-brand'
+    },
+    {
+      title: 'Iran OSINT Monitor',
+      description: 'Live military flight tracker (ADS-B Exchange), rotating YouTube video feed, X/Twitter #Iran live posts, and Reddit signal feed.',
+      path: '/prototypes/iran-osint'
+    },
+    {
+      title: 'Decision Support Matrix',
+      description: 'DSO/M prototype: C&E-driven operational design → live tactical map + decision matrix + timeline scrubber.',
+      path: '/prototypes/decision-support-tool'
     },
     {
       title: 'Undercity Agent Monitor',
@@ -81,16 +105,6 @@ export default function Home() {
             <span className={styles.statusItem}>STATUS: READY</span>
           </div>
         </div>
-      </div>
-      <div className={styles.pikachuContainer}>
-        <Image
-          src="/playground/pikachu-dancing.gif"
-          alt="Pikachu dancing"
-          width={150}
-          height={150}
-          className={styles.pikachu}
-          unoptimized
-        />
       </div>
     </div>
   );

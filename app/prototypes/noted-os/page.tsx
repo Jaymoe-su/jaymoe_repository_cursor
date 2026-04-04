@@ -545,14 +545,20 @@ function WindowComponent({
 
     lastPointRef.current = { x, y };
     
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+    // Set drawing properties
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = strokeWidth;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = strokeColor;
+    ctx.globalCompositeOperation = 'source-over';
+    
+    // Draw initial point
+    ctx.beginPath();
+    ctx.arc(x, y, strokeWidth / 2, 0, Math.PI * 2);
+    ctx.fillStyle = strokeColor;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
   };
 
   const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -565,7 +571,16 @@ function WindowComponent({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
+    // Set drawing properties
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = strokeWidth;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.globalCompositeOperation = 'source-over';
+
     // Draw smooth line from last point to current point
+    ctx.beginPath();
+    ctx.moveTo(lastPointRef.current.x, lastPointRef.current.y);
     ctx.lineTo(x, y);
     ctx.stroke();
     

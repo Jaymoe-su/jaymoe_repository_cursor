@@ -9,6 +9,9 @@
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import FeedbackWidgetLoader from "@/app/components/FeedbackWidget/FeedbackWidgetLoader";
+import FeedbackWidgetErrorBoundary from "@/app/components/FeedbackWidget/FeedbackWidgetErrorBoundary";
 import "./styles/globals.css";
 
 const geistSans = Geist({
@@ -43,6 +46,26 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <FeedbackWidgetErrorBoundary>
+          <FeedbackWidgetLoader />
+        </FeedbackWidgetErrorBoundary>
+        <Script
+          id="monterey-widget"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(m,o,n,t,e,r,y){
+                m[t]=m[t]||function(){(m[t].q=m[t].q||[]).push(arguments)};
+                var s=o.createElement(n);s.async=1;s.src=e;
+                var x=o.getElementsByTagName(n)[0];x.parentNode.insertBefore(s,x);
+              })(window,document,'script','Monterey','https://cdn.monterey.ai/widget.js');
+              Monterey('init', {
+                token: '${process.env.NEXT_PUBLIC_MONTEREY_TOKEN || ""}',
+                showWidget: false
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   );

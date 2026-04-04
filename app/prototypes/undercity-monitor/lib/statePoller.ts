@@ -1,6 +1,7 @@
 // app/prototypes/undercity-monitor/lib/statePoller.ts
 
 import type { SessionState } from './types';
+import { startMockAnimator } from './mockAnimator';
 
 const ACTIVE_INTERVAL = 2000;  // 2s when data is changing
 const IDLE_INTERVAL = 5000;    // 5s when nothing's changed
@@ -13,9 +14,11 @@ export class StatePoller {
   private lastJson = '';
   private unchangedCount = 0;
   private currentInterval = ACTIVE_INTERVAL;
+  private useMock = false;
+  private stopMockAnimator: (() => void) | null = null;
 
   start() {
-    if (this.intervalId) return;
+    if (this.intervalId || this.useMock) return;
     this.poll();
     this.scheduleNext();
 
@@ -27,6 +30,10 @@ export class StatePoller {
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
+    }
+    if (this.stopMockAnimator) {
+      this.stopMockAnimator();
+      this.stopMockAnimator = null;
     }
     document.removeEventListener('visibilitychange', this.onVisibility);
   }
@@ -40,6 +47,7 @@ export class StatePoller {
   }
 
   private onVisibility = () => {
+    if (this.useMock) return; // Mock animator runs regardless
     if (document.visibilityState === 'visible') {
       this.poll();
       this.scheduleNext();
@@ -56,10 +64,27 @@ export class StatePoller {
     this.intervalId = setInterval(() => this.poll(), this.currentInterval);
   }
 
+  private startMockMode() {
+    // Stop polling, switch to mock animator
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+    this.useMock = true;
+    this.stopMockAnimator = startMockAnimator((sessions) => {
+      this.lastSessions = sessions;
+      this.listeners.forEach(fn => fn(sessions));
+    });
+  }
+
   private async poll() {
     try {
       const res = await fetch('/api/undercity/sessions');
-      if (!res.ok) return;
+      if (!res.ok) {
+        // API not available — fall back to mock mode
+        this.startMockMode();
+        return;
+      }
       const sessions: SessionState[] = await res.json();
       const json = JSON.stringify(sessions);
 
@@ -80,7 +105,8 @@ export class StatePoller {
         this.listeners.forEach(fn => fn(sessions));
       }
     } catch {
-      // Silently retry on next interval
+      // Network error — fall back to mock mode
+      this.startMockMode();
     }
   }
 }

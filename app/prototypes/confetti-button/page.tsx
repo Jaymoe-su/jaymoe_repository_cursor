@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
 import Link from 'next/link';
-import Image from 'next/image';
 import confetti from 'canvas-confetti';
 
 interface BurnMark {
@@ -133,17 +132,6 @@ export default function ConfettiButtonPrototype() {
         />
       ))}
 
-      {/* Pikachu running along bottom */}
-      <div className={styles.pikachuContainer}>
-        <Image
-          src="/playground/pikachu-running.gif"
-          alt="Pikachu running"
-          width={100}
-          height={100}
-          className={styles.pikachu}
-          unoptimized
-        />
-      </div>
     </div>
   );
 } 

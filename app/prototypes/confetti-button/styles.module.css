@@ -351,28 +351,3 @@
     transform: translate(-50%, -50%) scale(1.2);
   }
 }
-
-.pikachuContainer {
-  position: fixed;
-  bottom: 1rem;
-  left: 0;
-  z-index: 3;
-  pointer-events: none;
-  animation: pikachuRun 10s linear infinite;
-}
-
-.pikachu {
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
-
-@keyframes pikachuRun {
-  0% {
-    transform: translateX(-150px);
-  }
-  100% {
-    transform: translateX(calc(100vw + 150px));
-  }
-}

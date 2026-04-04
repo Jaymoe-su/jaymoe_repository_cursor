@@ -1,3 +1,55 @@
+/* ─── ODS design tokens ─────────────────────────────────────────────────────── */
+
+:root {
+  --ods-color-primary: #1a56db;
+  --ods-color-primary-hover: #1648c0;
+  --ods-color-primary-surface: #eff6ff;
+  --ods-color-border: #e0e0e0;
+  --ods-color-border-input: #d1d5db;
+  --ods-color-surface-base: #ffffff;
+  --ods-color-surface-muted: #f8f9fa;
+  --ods-color-text-primary: #111827;
+  --ods-color-text-secondary: #374151;
+  --ods-color-text-muted: #6b7280;
+  --ods-color-danger: #ef4444;
+  --ods-color-success: #22c55e;
+  --ods-color-shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --ods-radius-sm: 6px;
+  --ods-radius-md: 8px;
+  --ods-radius-lg: 12px;
+  --ods-radius-full: 9999px;
+  --ods-font-size-xs: 10px;
+  --ods-font-size-sm: 12px;
+  --ods-font-size-base: 14px;
+  --ods-font-size-lg: 16px;
+  --ods-font-weight-medium: 500;
+  --ods-font-weight-semibold: 600;
+  --ods-font-weight-bold: 700;
+  --ods-spacing-1: 4px;
+  --ods-spacing-2: 8px;
+  --ods-spacing-3: 12px;
+  --ods-spacing-4: 16px;
+  --ods-spacing-5: 20px;
+  --ods-spacing-6: 24px;
+  --ods-transition-fast: 0.15s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ods-color-surface-base: #1e2433;
+    --ods-color-surface-muted: #252d3d;
+    --ods-color-border: #374151;
+    --ods-color-border-input: #4b5563;
+    --ods-color-text-primary: #f9fafb;
+    --ods-color-text-secondary: #e5e7eb;
+    --ods-color-text-muted: #9ca3af;
+    --ods-color-primary-surface: #1e3a5f;
+    --ods-color-shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ─── CSS Reset ─────────────────────────────────────────────────────────────── */
+
 /* CSS Reset */
 /* 1. Use a more-intuitive box-sizing model */
 *, *::before, *::after {

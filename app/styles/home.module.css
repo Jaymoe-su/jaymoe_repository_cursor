@@ -426,31 +426,6 @@
   }
 }
 
-.pikachuContainer {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 100;
-  pointer-events: none;
-  animation: pikachuBounce 2s ease-in-out infinite;
-}
-
-.pikachu {
-  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
-
-@keyframes pikachuBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .titleGlow {
@@ -467,13 +442,4 @@
     max-width: 90%;
   }
   
-  .pikachuContainer {
-    bottom: 0.5rem;
-    right: 0.5rem;
-  }
-  
-  .pikachu {
-    width: 100px !important;
-    height: 100px !important;
-  }
 }
