@@ -5,12 +5,15 @@
 import Link from 'next/link';
 import { useRef } from 'react';
 import { useSessionState } from './hooks/useSessionState';
+import { useTheme } from './hooks/useTheme';
 import { SessionTabs } from './components/SessionTabs';
 import { Sidebar } from './components/Sidebar';
+import { DungeonRenderer } from './components/DungeonRenderer';
 import styles from './styles.module.css';
 
 export default function UndercityMonitor() {
   const { sessions, activeSession, activeSessionId, selectSession } = useSessionState();
+  const { activeTheme } = useTheme();
   const viewportRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -23,7 +26,7 @@ export default function UndercityMonitor() {
       />
       <div className={styles.main}>
         <div ref={viewportRef} className={styles.viewport}>
-          {/* Three.js canvas will be mounted here in Task 4 */}
+          <DungeonRenderer containerRef={viewportRef} agents={activeSession?.agents ?? []} />
         </div>
         <Sidebar session={activeSession} />
       </div>
