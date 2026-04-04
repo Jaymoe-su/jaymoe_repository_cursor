@@ -1,0 +1,276 @@
+/* app/prototypes/undercity-monitor/styles.module.css */
+
+/* === LAYOUT === */
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0A0A0D;
+  color: #C8B88A;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* === TAB BAR === */
+.tabBar {
+  display: flex;
+  gap: 2px;
+  padding: 6px 12px 0;
+  background: #0D0D0D;
+  border-bottom: 2px solid #3E2B15;
+  flex-shrink: 0;
+  height: 44px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #1A1208;
+  border: 1px solid #3D2E14;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  color: #6B5A3A;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover { background: #221A0D; }
+
+.tabActive {
+  background: #2A1F0E;
+  color: #FFD700;
+  border-color: #5A4520;
+  box-shadow: 0 -2px 12px rgba(255, 215, 0, 0.12);
+}
+
+.instanceDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4A7A2E;
+  box-shadow: 0 0 6px rgba(74, 122, 46, 0.5);
+  flex-shrink: 0;
+}
+
+.tabActive .instanceDot {
+  background: #6AFF2E;
+  box-shadow: 0 0 8px rgba(106, 255, 46, 0.7);
+}
+
+.instanceDotStale {
+  background: #5A4520;
+  box-shadow: none;
+}
+
+/* === MAIN AREA === */
+.main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* === VIEWPORT (Three.js canvas mount) === */
+.viewport {
+  flex: 1;
+  position: relative;
+  background: #0A0A0D;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 280px;
+  background: #0F0D08;
+  border-left: 3px solid;
+  border-image: linear-gradient(to bottom, #EBC880, #C79C6E, #80592E) 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.sidebarHeader {
+  padding: 12px 14px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #EBC880;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #3E2B15, #4D371A, #3E2B15);
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, rgba(199,156,110,0.2), #C79C6E, rgba(199,156,110,0.2)) 1;
+  text-shadow: 0 0 8px rgba(235, 200, 128, 0.3);
+}
+
+/* === RAID ROSTER === */
+.rosterSection {
+  border-bottom: 1px solid #2A1F0E;
+}
+
+.rosterList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+}
+
+.rosterEntry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid #2A1F0E;
+  border-radius: 4px;
+  background: rgba(10, 10, 13, 0.5);
+}
+
+.rosterInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.rosterName {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C8B88A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rosterTitle {
+  font-size: 8px;
+  color: #6B5A3A;
+}
+
+.rosterActivity {
+  font-size: 8px;
+  color: #5A4A30;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rosterWaiting { color: #8A6AAA; }
+.rosterCompacting { color: #CC0000; }
+
+.rosterHealthBar {
+  width: 36px;
+  height: 5px;
+  background: #1A0A0A;
+  border: 1px solid #3A2A1A;
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.rosterHealthFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* === QUEST LOG === */
+.questSection {
+  flex: 1;
+}
+
+.questList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+}
+
+.questEntry {
+  padding: 8px;
+  border: 1px solid #2A1F0E;
+  border-radius: 4px;
+  background: rgba(10, 10, 13, 0.5);
+}
+
+.questComplete {
+  opacity: 0.6;
+}
+
+.questTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: #EBC880;
+}
+
+.questComplete .questTitle {
+  color: #6B6B6B;
+}
+
+.questCheck {
+  color: #2ECC40;
+}
+
+.questObjectives {
+  margin: 4px 0 4px 4px;
+}
+
+.questObjective {
+  font-size: 9px;
+  color: #6B6B6B;
+  line-height: 1.5;
+}
+
+.objectiveDone {
+  color: #E8D5B5;
+}
+
+.questAgent {
+  font-size: 8px;
+  color: #5A4A30;
+  margin-top: 4px;
+}
+
+.questProgress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.questProgressBar {
+  flex: 1;
+  height: 6px;
+  background: #1A1208;
+  border: 1px solid #2A1F0E;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.questProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #80592E, #CCA626);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.questProgressText {
+  font-size: 8px;
+  color: #C79C6E;
+  flex-shrink: 0;
+}
+
+/* === BACK BUTTON === */
+.backButton {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  color: #C79C6E;
+  text-decoration: none;
+  font-size: 20px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.backButton:hover { opacity: 1; }

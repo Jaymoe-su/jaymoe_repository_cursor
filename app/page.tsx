@@ -26,6 +26,11 @@ export default function Home() {
       description: 'A window-based note-taking app with cyberpunk aesthetics, featuring draggable windows, rich text editing, and drawing canvas',
       path: '/prototypes/noted-os'
     },
+    {
+      title: 'Undercity Agent Monitor',
+      description: 'Live 3D isometric WoW-themed monitoring dashboard for multi-agent Claude Code sessions. Profession workstations, raid briefings, summoning stone.',
+      path: '/prototypes/undercity-monitor'
+    },
     // Add your new prototypes here like this:
     // {
     //   title: 'Your new prototype',
