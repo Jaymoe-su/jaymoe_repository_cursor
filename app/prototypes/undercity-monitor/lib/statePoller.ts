@@ -2,17 +2,25 @@
 
 import type { SessionState } from './types';
 
-const POLL_INTERVAL = 500; // ms
+const ACTIVE_INTERVAL = 2000;  // 2s when data is changing
+const IDLE_INTERVAL = 5000;    // 5s when nothing's changed
+const IDLE_THRESHOLD = 3;      // consecutive unchanged polls before backing off
 
 export class StatePoller {
   private intervalId: ReturnType<typeof setInterval> | null = null;
   private listeners: Set<(sessions: SessionState[]) => void> = new Set();
   private lastSessions: SessionState[] = [];
+  private lastJson = '';
+  private unchangedCount = 0;
+  private currentInterval = ACTIVE_INTERVAL;
 
   start() {
     if (this.intervalId) return;
-    this.poll(); // immediate first poll
-    this.intervalId = setInterval(() => this.poll(), POLL_INTERVAL);
+    this.poll();
+    this.scheduleNext();
+
+    // Pause when tab is hidden, resume when visible
+    document.addEventListener('visibilitychange', this.onVisibility);
   }
 
   stop() {
@@ -20,15 +28,32 @@ export class StatePoller {
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
+    document.removeEventListener('visibilitychange', this.onVisibility);
   }
 
   subscribe(listener: (sessions: SessionState[]) => void): () => void {
     this.listeners.add(listener);
-    // Immediately emit last known state
     if (this.lastSessions.length > 0) {
       listener(this.lastSessions);
     }
     return () => this.listeners.delete(listener);
+  }
+
+  private onVisibility = () => {
+    if (document.visibilityState === 'visible') {
+      this.poll();
+      this.scheduleNext();
+    } else {
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    }
+  };
+
+  private scheduleNext() {
+    if (this.intervalId) clearInterval(this.intervalId);
+    this.intervalId = setInterval(() => this.poll(), this.currentInterval);
   }
 
   private async poll() {
@@ -36,8 +61,24 @@ export class StatePoller {
       const res = await fetch('/api/undercity/sessions');
       if (!res.ok) return;
       const sessions: SessionState[] = await res.json();
-      this.lastSessions = sessions;
-      this.listeners.forEach(fn => fn(sessions));
+      const json = JSON.stringify(sessions);
+
+      if (json === this.lastJson) {
+        this.unchangedCount++;
+        if (this.unchangedCount >= IDLE_THRESHOLD && this.currentInterval !== IDLE_INTERVAL) {
+          this.currentInterval = IDLE_INTERVAL;
+          this.scheduleNext();
+        }
+      } else {
+        this.unchangedCount = 0;
+        if (this.currentInterval !== ACTIVE_INTERVAL) {
+          this.currentInterval = ACTIVE_INTERVAL;
+          this.scheduleNext();
+        }
+        this.lastJson = json;
+        this.lastSessions = sessions;
+        this.listeners.forEach(fn => fn(sessions));
+      }
     } catch {
       // Silently retry on next interval
     }
