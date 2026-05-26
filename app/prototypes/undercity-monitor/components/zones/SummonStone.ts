@@ -27,10 +27,10 @@ export function createSummonStone(): THREE.Group {
   const groundRuneMat = new THREE.MeshStandardMaterial({
     color: WOW.runeBlue,
     emissive: WOW.runeBlue,
-    emissiveIntensity: 0.4,
+    emissiveIntensity: 0.9,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.6,
   });
   groundRuneRing = new THREE.Mesh(groundRuneGeo, groundRuneMat);
   groundRuneRing.rotation.x = -Math.PI / 2;
@@ -62,7 +62,7 @@ export function createSummonStone(): THREE.Group {
     const runeMat = new THREE.MeshStandardMaterial({
       color: WOW.runeBlue,
       emissive: WOW.runeBlue,
-      emissiveIntensity: 0.6 + Math.random() * 0.4,
+      emissiveIntensity: 1.2 + Math.random() * 0.6,
       transparent: true,
       opacity: 0.8,
     });
@@ -84,9 +84,9 @@ export function createSummonStone(): THREE.Group {
   const discMat = new THREE.MeshStandardMaterial({
     color: WOW.portalMid,
     emissive: WOW.portalEdge,
-    emissiveIntensity: 0.8,
+    emissiveIntensity: 1.5,
     transparent: true,
-    opacity: 0.35,
+    opacity: 0.45,
     side: THREE.DoubleSide,
   });
   portalDisc = new THREE.Mesh(discGeo, discMat);
@@ -102,7 +102,7 @@ export function createSummonStone(): THREE.Group {
     const mat = new THREE.MeshStandardMaterial({
       color: i === 2 ? WOW.portalCenter : WOW.portalMid,
       emissive: i === 2 ? WOW.portalCenter : WOW.portalEdge,
-      emissiveIntensity: 0.8 + i * 0.3,
+      emissiveIntensity: 1.5 + i * 0.5,
       transparent: true,
       opacity: 0.7 + i * 0.1,
     });
@@ -118,9 +118,9 @@ export function createSummonStone(): THREE.Group {
   const coreMat = new THREE.MeshStandardMaterial({
     color: WOW.portalCenter,
     emissive: WOW.portalCenter,
-    emissiveIntensity: 2.0,
+    emissiveIntensity: 3.5,
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.7,
   });
   const core = new THREE.Mesh(coreGeo, coreMat);
   core.position.y = 3.8;
@@ -140,9 +140,9 @@ export function createSummonStone(): THREE.Group {
     const flankRuneMat = new THREE.MeshStandardMaterial({
       color: WOW.runeBlue,
       emissive: WOW.runeBlue,
-      emissiveIntensity: 0.5,
+      emissiveIntensity: 1.2,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.7,
     });
     const flankRune = new THREE.Mesh(flankRuneGeo, flankRuneMat);
     flankRune.position.set(x, 1.2, z);
@@ -161,9 +161,9 @@ export function createSummonStone(): THREE.Group {
   moteGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   const moteMat = new THREE.PointsMaterial({
     color: WOW.runeWhite,
-    size: 0.1,
+    size: 0.18,
     transparent: true,
-    opacity: 0.7,
+    opacity: 0.85,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
@@ -171,7 +171,7 @@ export function createSummonStone(): THREE.Group {
   group.add(motes);
 
   // Blue-purple PointLight — brighter
-  stoneLight = new THREE.PointLight(WOW.summonBlue, 2.5, 18, 2);
+  stoneLight = new THREE.PointLight(WOW.summonBlue, 4.0, 22, 2);
   stoneLight.position.set(0, 3.8, 0);
   stoneLight.castShadow = true;
   stoneLight.shadow.mapSize.set(256, 256);
@@ -197,11 +197,11 @@ export function updateSummonStone(delta: number, elapsed: number): void {
   if (groundRuneRing) {
     groundRuneRing.rotation.z -= delta * 0.2;
     const gMat = groundRuneRing.material as THREE.MeshStandardMaterial;
-    gMat.emissiveIntensity = 0.3 + Math.sin(elapsed * 1.5) * 0.15;
+    gMat.emissiveIntensity = 0.7 + Math.sin(elapsed * 1.5) * 0.3;
   }
 
   // Pulse stone light
-  stoneLight.intensity = 2.0 + Math.sin(elapsed * 1.5) * 0.5;
+  stoneLight.intensity = 3.5 + Math.sin(elapsed * 1.5) * 0.8;
 
   // Drift motes upward, reset when they reach the portal
   if (motes) {

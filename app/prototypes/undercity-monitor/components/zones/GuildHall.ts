@@ -109,7 +109,7 @@ export function createGuildHall(): THREE.Group {
     new THREE.Vector3(0, 2.5, -4.5),
   ];
   torchPositions.forEach(pos => {
-    const light = new THREE.PointLight(WOW.guildHallTorch, 2.0, 14, 2);
+    const light = new THREE.PointLight(WOW.guildHallTorch, 3.5, 18, 2);
     light.position.copy(pos);
     light.castShadow = true;
     light.shadow.mapSize.set(256, 256);
@@ -129,7 +129,7 @@ export function createGuildHall(): THREE.Group {
     const headMat = new THREE.MeshStandardMaterial({
       color: WOW.forgeOrange,
       emissive: WOW.forgeOrange,
-      emissiveIntensity: 2.0,
+      emissiveIntensity: 3.0,
     });
     const head = new THREE.Mesh(headGeo, headMat);
     head.position.copy(pos);
@@ -143,6 +143,6 @@ export function createGuildHall(): THREE.Group {
 export function updateGuildHall(delta: number, elapsed: number): void {
   // Flicker torch lights
   torchLights.forEach((light, i) => {
-    light.intensity = 1.8 + Math.sin(elapsed * 6 + i * 1.7) * 0.3 + Math.random() * 0.15;
+    light.intensity = 3.0 + Math.sin(elapsed * 6 + i * 1.7) * 0.5 + Math.random() * 0.2;
   });
 }

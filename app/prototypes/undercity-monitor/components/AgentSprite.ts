@@ -71,6 +71,24 @@ function createNameplateTexture(agent: Agent): THREE.CanvasTexture {
   // Clear with transparency
   ctx.clearRect(0, 0, 512, 256);
 
+  // Semi-transparent dark background panel with gold border
+  const panelX = 40;
+  const panelY = 12;
+  const panelW = 432;
+  const panelH = 200;
+  const panelR = 10;
+
+  ctx.fillStyle = 'rgba(15, 12, 20, 0.75)';
+  ctx.beginPath();
+  ctx.roundRect(panelX, panelY, panelW, panelH, panelR);
+  ctx.fill();
+
+  ctx.strokeStyle = '#C79C6E';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.roundRect(panelX, panelY, panelW, panelH, panelR);
+  ctx.stroke();
+
   const cx = 256;
 
   // Status icon (top)
@@ -81,49 +99,49 @@ function createNameplateTexture(agent: Agent): THREE.CanvasTexture {
     ctx.fillText(statusIcon, cx, 30);
   }
 
-  // Role puck circle
+  // Role puck circle — prominent
   const puckColor = PUCK_COLORS[agent.rolePuck] || '#888888';
   ctx.beginPath();
-  ctx.arc(cx, 65, 26, 0, Math.PI * 2);
+  ctx.arc(cx, 58, 30, 0, Math.PI * 2);
   ctx.fillStyle = '#1A1A22';
   ctx.fill();
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 4;
   ctx.strokeStyle = puckColor;
   ctx.stroke();
 
   // Puck inner glow ring
   ctx.beginPath();
-  ctx.arc(cx, 65, 22, 0, Math.PI * 2);
+  ctx.arc(cx, 58, 25, 0, Math.PI * 2);
   ctx.strokeStyle = puckColor;
-  ctx.lineWidth = 1.5;
-  ctx.globalAlpha = 0.5;
+  ctx.lineWidth = 2;
+  ctx.globalAlpha = 0.6;
   ctx.stroke();
   ctx.globalAlpha = 1.0;
 
   // Initial letter in puck
-  ctx.font = 'bold 24px sans-serif';
+  ctx.font = 'bold 28px sans-serif';
   ctx.fillStyle = '#EBC880';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(agent.wowName.charAt(0), cx, 67);
+  ctx.fillText(agent.wowName.charAt(0), cx, 60);
 
   // Name — bigger
-  ctx.font = 'bold 18px sans-serif';
+  ctx.font = 'bold 22px sans-serif';
   ctx.fillStyle = '#FFD700';
   ctx.textBaseline = 'top';
   ctx.textAlign = 'center';
-  ctx.fillText(agent.wowName, cx, 98);
+  ctx.fillText(agent.wowName, cx, 96);
 
   // Guild title
-  ctx.font = '14px sans-serif';
+  ctx.font = '16px sans-serif';
   ctx.fillStyle = '#B87AFF';
-  ctx.fillText(`<${agent.title}>`, cx, 120);
+  ctx.fillText(`<${agent.title}>`, cx, 122);
 
   // Health bar background
-  const barX = 156;
-  const barW = 200;
-  const barH = 12;
-  const barY = 145;
+  const barX = 126;
+  const barW = 260;
+  const barH = 16;
+  const barY = 148;
 
   ctx.fillStyle = '#1A0A0A';
   ctx.fillRect(barX, barY, barW, barH);
@@ -139,26 +157,26 @@ function createNameplateTexture(agent: Agent): THREE.CanvasTexture {
   ctx.fillRect(barX + 2, barY + 2, healthW, barH - 4);
 
   // Health percentage
-  ctx.font = 'bold 10px sans-serif';
+  ctx.font = 'bold 12px sans-serif';
   ctx.fillStyle = '#FFFFFF';
   ctx.textAlign = 'center';
   ctx.fillText(`${Math.round(agent.contextHealth * 100)}%`, cx, barY + barH - 2);
 
   // Activity text — bigger
-  ctx.font = 'italic 13px sans-serif';
-  ctx.fillStyle = '#8B7B5B';
+  ctx.font = 'italic 14px sans-serif';
+  ctx.fillStyle = '#A09070';
   const activity = agent.activity.length > 40 ? agent.activity.slice(0, 38) + '...' : agent.activity;
-  ctx.fillText(activity, cx, 170);
+  ctx.fillText(activity, cx, 178);
 
   // State indicator text
   if (agent.state === 'compacting') {
-    ctx.font = 'bold 12px sans-serif';
+    ctx.font = 'bold 14px sans-serif';
     ctx.fillStyle = '#FF4444';
-    ctx.fillText('COMPACTING', cx, 192);
+    ctx.fillText('COMPACTING', cx, 198);
   } else if (agent.state === 'waiting') {
-    ctx.font = 'bold 12px sans-serif';
+    ctx.font = 'bold 14px sans-serif';
     ctx.fillStyle = '#FFAA00';
-    ctx.fillText('WAITING', cx, 192);
+    ctx.fillText('WAITING', cx, 198);
   }
 
   const texture = new THREE.CanvasTexture(canvas);
@@ -221,7 +239,7 @@ export class AgentSpriteManager {
           depthTest: false,
         });
         const sprite = new THREE.Sprite(mat);
-        sprite.scale.set(5, 2.5, 1);
+        sprite.scale.set(7, 3.5, 1);
         sprite.position.copy(targetPos);
         this.scene.add(sprite);
 
@@ -234,7 +252,7 @@ export class AgentSpriteManager {
           depthTest: false,
         });
         const glowSprite = new THREE.Sprite(glowMat);
-        glowSprite.scale.set(6, 3, 1);
+        glowSprite.scale.set(8, 4, 1);
         glowSprite.position.copy(targetPos);
         this.scene.add(glowSprite);
 

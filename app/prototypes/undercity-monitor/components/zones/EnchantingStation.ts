@@ -45,7 +45,7 @@ export function createEnchantingStation(): THREE.Group {
   const runeMat = new THREE.MeshStandardMaterial({
     color: WOW.enchantingPurple,
     emissive: WOW.enchantingPurple,
-    emissiveIntensity: 0.8,
+    emissiveIntensity: 1.5,
     side: THREE.DoubleSide,
     transparent: true,
     opacity: 0.7,
@@ -59,7 +59,7 @@ export function createEnchantingStation(): THREE.Group {
   const innerRuneMat = new THREE.MeshStandardMaterial({
     color: WOW.runePurple,
     emissive: WOW.runePurple,
-    emissiveIntensity: 1.0,
+    emissiveIntensity: 2.0,
     side: THREE.DoubleSide,
     transparent: true,
     opacity: 0.8,
@@ -73,7 +73,7 @@ export function createEnchantingStation(): THREE.Group {
   const crystalMat = new THREE.MeshStandardMaterial({
     color: 0x8844CC,
     emissive: WOW.enchantingPurple,
-    emissiveIntensity: 0.6,
+    emissiveIntensity: 1.2,
     transparent: true,
     opacity: 0.7,
   });
@@ -108,7 +108,7 @@ export function createEnchantingStation(): THREE.Group {
   const purpleFlameMat = new THREE.MeshStandardMaterial({
     color: WOW.enchantingPurple,
     emissive: WOW.enchantingPurple,
-    emissiveIntensity: 2.0,
+    emissiveIntensity: 3.0,
   });
   [[-2.5, -2.5], [-2.5, 2.5], [2.5, -2.5], [2.5, 2.5]].forEach(([x, z]) => {
     const candleGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.35, 6);
@@ -122,13 +122,13 @@ export function createEnchantingStation(): THREE.Group {
     group.add(flame);
 
     // Small light per candle
-    const candleLight = new THREE.PointLight(WOW.enchantingPurple, 0.5, 4, 2);
+    const candleLight = new THREE.PointLight(WOW.enchantingPurple, 1.2, 6, 2);
     candleLight.position.set(x, 1.0, z);
     group.add(candleLight);
   });
 
   // Purple PointLight — brighter
-  enchantLight = new THREE.PointLight(WOW.enchantingPurple, 2.5, 14, 2);
+  enchantLight = new THREE.PointLight(WOW.enchantingPurple, 4.0, 18, 2);
   enchantLight.position.set(0, 3.5, 0);
   enchantLight.castShadow = true;
   enchantLight.shadow.mapSize.set(256, 256);
@@ -139,7 +139,7 @@ export function createEnchantingStation(): THREE.Group {
 
 export function updateEnchantingStation(delta: number, elapsed: number): void {
   // Slow pulse
-  enchantLight.intensity = 2.0 + Math.sin(elapsed * Math.PI) * 0.6;
+  enchantLight.intensity = 3.5 + Math.sin(elapsed * Math.PI) * 0.8;
 
   // Rotate rune rings in opposite directions
   if (outerRuneRing) outerRuneRing.rotation.z += delta * 0.3;
@@ -148,6 +148,6 @@ export function updateEnchantingStation(delta: number, elapsed: number): void {
   // Pulse crystal emissive
   crystals.forEach((crystal, i) => {
     const mat = crystal.material as THREE.MeshStandardMaterial;
-    mat.emissiveIntensity = 0.4 + Math.sin(elapsed * 2 + i * 0.8) * 0.3;
+    mat.emissiveIntensity = 0.8 + Math.sin(elapsed * 2 + i * 0.8) * 0.5;
   });
 }

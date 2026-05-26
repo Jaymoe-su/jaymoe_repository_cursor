@@ -15,8 +15,8 @@ export const WOW = {
   slimeGreenDim: 0x267F00,
   forsakenPurple: 0x331A40,
   stoneDark: 0x1F2129,
-  stoneBase: 0x38404D,
-  stoneLight: 0x525966,
+  stoneBase: 0x4A5060,
+  stoneLight: 0x626A78,
 
   // Zone lights
   forgeOrange: 0xFF7A1A,

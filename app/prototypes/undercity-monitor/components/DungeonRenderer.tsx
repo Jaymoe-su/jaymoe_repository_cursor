@@ -38,7 +38,7 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
     // Scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(WOW.black);
-    scene.fog = new THREE.FogExp2(WOW.black, 0.018);
+    scene.fog = new THREE.FogExp2(WOW.black, 0.003);
 
     // Perspective camera for orbit controls
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 200);
@@ -52,7 +52,7 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.8;
+    renderer.toneMappingExposure = 1.6;
     container.appendChild(renderer.domElement);
 
     // Bloom post-processing
@@ -62,9 +62,9 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
 
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(width, height),
-      0.8,   // strength
-      0.6,   // radius
-      0.4    // threshold
+      1.0,   // strength
+      0.7,   // radius
+      0.25   // threshold — lower to catch more emissive glow
     );
     composer.addPass(bloomPass);
 
@@ -82,12 +82,17 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
     controls.target.set(0, 0, 0);
     controls.update();
 
-    // Lighting — dim ambient + hemisphere fill
-    const ambient = new THREE.AmbientLight(0x1a1a2e, 0.25);
+    // Lighting — ambient + hemisphere fill + directional for definition
+    const ambient = new THREE.AmbientLight(0x2a2a3e, 0.7);
     scene.add(ambient);
 
-    const hemi = new THREE.HemisphereLight(0x1a1a40, 0x0a0a0d, 0.3);
+    const hemi = new THREE.HemisphereLight(0x2a2a50, 0x151518, 0.6);
     scene.add(hemi);
+
+    // Directional from above for geometry definition
+    const dirLight = new THREE.DirectionalLight(0x8888aa, 0.35);
+    dirLight.position.set(5, 20, 5);
+    scene.add(dirLight);
 
     // Ground plane — dark stone with procedural texture
     const groundSize = 50;
@@ -105,8 +110,8 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
     groundGeo.computeVertexNormals();
 
     const groundMat = new THREE.MeshStandardMaterial({
-      color: 0x151820,
-      roughness: 0.95,
+      color: 0x252830,
+      roughness: 0.9,
       metalness: 0.05,
     });
     const ground = new THREE.Mesh(groundGeo, groundMat);
@@ -140,11 +145,11 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
     const canalMat = new THREE.MeshStandardMaterial({
       color: WOW.slimeGreenDim,
       emissive: WOW.slimeGreen,
-      emissiveIntensity: 0.5,
+      emissiveIntensity: 0.9,
       roughness: 0.2,
       metalness: 0.0,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.85,
     });
 
     // Horizontal canal (Z axis)
@@ -165,7 +170,7 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
       [18, 0.5, 0], [-18, 0.5, 0], [0, 0.5, 18], [0, 0.5, -18],
     ];
     canalLightPositions.forEach(([x, y, z]) => {
-      const light = new THREE.PointLight(WOW.slimeGreen, 0.4, 6, 2);
+      const light = new THREE.PointLight(WOW.slimeGreen, 1.2, 10, 2);
       light.position.set(x, y, z);
       scene.add(light);
     });
@@ -239,7 +244,7 @@ export function DungeonRenderer({ containerRef, agents }: DungeonRendererProps) 
       controls.update();
 
       // Animate slime canal emissive pulsing
-      const pulse = 0.4 + Math.sin(elapsed * 1.5) * 0.15;
+      const pulse = 0.8 + Math.sin(elapsed * 1.5) * 0.2;
       canalMat.emissiveIntensity = pulse;
 
       // Update all zones

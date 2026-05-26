@@ -64,7 +64,7 @@ export function createApothecaryStation(): THREE.Group {
   brewMat = new THREE.MeshStandardMaterial({
     color: WOW.slimeGreenDim,
     emissive: WOW.apothecaryGreen,
-    emissiveIntensity: 0.7,
+    emissiveIntensity: 1.5,
     transparent: true,
     opacity: 0.85,
   });
@@ -78,7 +78,7 @@ export function createApothecaryStation(): THREE.Group {
   const fireMat = new THREE.MeshStandardMaterial({
     color: 0xFF6600,
     emissive: 0xFF4400,
-    emissiveIntensity: 1.5,
+    emissiveIntensity: 2.5,
   });
   const fire = new THREE.Mesh(fireGeo, fireMat);
   fire.position.set(0, 0.25, 0);
@@ -139,7 +139,7 @@ export function createApothecaryStation(): THREE.Group {
   });
 
   // Green PointLight — brighter
-  cauldronLight = new THREE.PointLight(WOW.apothecaryGreen, 2.5, 14, 2);
+  cauldronLight = new THREE.PointLight(WOW.apothecaryGreen, 4.0, 18, 2);
   cauldronLight.position.set(0, 3, 0);
   cauldronLight.castShadow = true;
   cauldronLight.shadow.mapSize.set(256, 256);
@@ -151,7 +151,7 @@ export function createApothecaryStation(): THREE.Group {
 export function updateApothecaryStation(delta: number, elapsed: number): void {
   // Brew bubbling glow
   if (brewMat) {
-    brewMat.emissiveIntensity = 0.6 + Math.sin(elapsed * 2.5) * 0.2;
+    brewMat.emissiveIntensity = 1.2 + Math.sin(elapsed * 2.5) * 0.4;
   }
-  cauldronLight.intensity = 2.0 + Math.sin(elapsed * 2.5) * 0.5;
+  cauldronLight.intensity = 3.5 + Math.sin(elapsed * 2.5) * 0.8;
 }

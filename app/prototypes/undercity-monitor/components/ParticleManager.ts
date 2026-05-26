@@ -67,7 +67,7 @@ export class ParticleManager {
   private init() {
     // Forge sparks — brighter, more numerous
     const forgeSparks = createSystem(
-      80, WOW.forgeOrange, 0.1,
+      80, WOW.forgeOrange, 0.18,
       new THREE.Vector3(10, 1, -10),
       new THREE.Vector3(2.5, 0, 2.5),
       0.8,
@@ -101,7 +101,7 @@ export class ParticleManager {
     ];
     torchPositions.forEach(tPos => {
       const torchFire = createSystem(
-        15, WOW.forgeOrange, 0.06,
+        15, WOW.forgeOrange, 0.12,
         tPos,
         new THREE.Vector3(0.3, 0, 0.3),
         0.7,
@@ -123,10 +123,10 @@ export class ParticleManager {
 
     // Slime canal bubbles — more particles, wider spread
     const slimeBubblesH = createSystem(
-      50, WOW.slimeGreen, 0.08,
+      50, WOW.slimeGreen, 0.18,
       new THREE.Vector3(0, 0.05, 0),
       new THREE.Vector3(40, 0, 1.5),
-      0.7,
+      0.85,
       (pos, _vel, delta) => {
         for (let i = 0; i < pos.count; i++) {
           let y = pos.getY(i) + delta * 0.2;
@@ -142,10 +142,10 @@ export class ParticleManager {
     this.addSystem(slimeBubblesH);
 
     const slimeBubblesV = createSystem(
-      50, WOW.slimeGreen, 0.08,
+      50, WOW.slimeGreen, 0.18,
       new THREE.Vector3(0, 0.05, 0),
       new THREE.Vector3(1.5, 0, 40),
-      0.7,
+      0.85,
       (pos, _vel, delta) => {
         for (let i = 0; i < pos.count; i++) {
           let y = pos.getY(i) + delta * 0.2;
@@ -162,7 +162,7 @@ export class ParticleManager {
 
     // Apothecary steam — more particles
     const apothSteam = createSystem(
-      50, WOW.apothecaryGreen, 0.12,
+      50, WOW.apothecaryGreen, 0.2,
       new THREE.Vector3(-10, 1.5, 10),
       new THREE.Vector3(1.2, 0, 1.2),
       0.5,
@@ -184,7 +184,7 @@ export class ParticleManager {
 
     // Enchanting arcane motes — more motes, dual orbit
     const enchantMotes = createSystem(
-      40, WOW.enchantingPurple, 0.09,
+      40, WOW.enchantingPurple, 0.18,
       new THREE.Vector3(-10, 2, -10),
       new THREE.Vector3(3, 1.5, 3),
       0.8,
@@ -203,7 +203,7 @@ export class ParticleManager {
 
     // Ambient dust motes — floating everywhere, very subtle
     const dustMotes = createSystem(
-      120, 0x555566, 0.04,
+      120, 0x555566, 0.08,
       new THREE.Vector3(0, 2, 0),
       new THREE.Vector3(40, 4, 40),
       0.2,

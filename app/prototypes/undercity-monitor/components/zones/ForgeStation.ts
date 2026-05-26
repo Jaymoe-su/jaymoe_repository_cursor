@@ -51,7 +51,7 @@ export function createForgeStation(): THREE.Group {
   const fireMat = new THREE.MeshStandardMaterial({
     color: WOW.forgeOrange,
     emissive: WOW.forgeOrange,
-    emissiveIntensity: 2.0,
+    emissiveIntensity: 3.0,
   });
   const fire = new THREE.Mesh(fireGeo, fireMat);
   fire.position.set(0, 0.6, -0.3);
@@ -129,7 +129,7 @@ export function createForgeStation(): THREE.Group {
   group.add(water);
 
   // Orange PointLight — brighter
-  forgeLight = new THREE.PointLight(WOW.forgeOrange, 3, 18, 2);
+  forgeLight = new THREE.PointLight(WOW.forgeOrange, 4.5, 20, 2);
   forgeLight.position.set(0, 3, -1);
   forgeLight.castShadow = true;
   forgeLight.shadow.mapSize.set(256, 256);
@@ -140,5 +140,5 @@ export function createForgeStation(): THREE.Group {
 
 export function updateForgeStation(delta: number, elapsed: number): void {
   // Flickering forge light (noise-like)
-  forgeLight.intensity = 2.5 + Math.sin(elapsed * 8) * 0.4 + Math.sin(elapsed * 13) * 0.2 + Math.random() * 0.15;
+  forgeLight.intensity = 4.0 + Math.sin(elapsed * 8) * 0.6 + Math.sin(elapsed * 13) * 0.3 + Math.random() * 0.2;
 }

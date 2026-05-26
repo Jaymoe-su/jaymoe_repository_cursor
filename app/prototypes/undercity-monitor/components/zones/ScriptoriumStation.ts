@@ -103,7 +103,7 @@ export function createScriptoriumStation(): THREE.Group {
   const flameMat = new THREE.MeshStandardMaterial({
     color: WOW.scriptoriumAmber,
     emissive: WOW.scriptoriumAmber,
-    emissiveIntensity: 2.5,
+    emissiveIntensity: 3.5,
   });
 
   const candlePositions = [
@@ -124,7 +124,7 @@ export function createScriptoriumStation(): THREE.Group {
   });
 
   // Amber PointLight — brighter
-  candleLight = new THREE.PointLight(WOW.scriptoriumAmber, 2.0, 14, 2);
+  candleLight = new THREE.PointLight(WOW.scriptoriumAmber, 4.0, 18, 2);
   candleLight.position.set(0, 2.5, 0);
   candleLight.castShadow = true;
   candleLight.shadow.mapSize.set(256, 256);
@@ -135,11 +135,11 @@ export function createScriptoriumStation(): THREE.Group {
 
 export function updateScriptoriumStation(delta: number, elapsed: number): void {
   // Gentle candle flicker
-  candleLight.intensity = 1.8 + Math.sin(elapsed * 3.5) * 0.25 + Math.random() * 0.1;
+  candleLight.intensity = 3.5 + Math.sin(elapsed * 3.5) * 0.5 + Math.random() * 0.15;
 
   // Pulse flame emissive
   candleFlames.forEach((flame, i) => {
     const mat = flame.material as THREE.MeshStandardMaterial;
-    mat.emissiveIntensity = 2.0 + Math.sin(elapsed * 4 + i * 2) * 0.5;
+    mat.emissiveIntensity = 3.0 + Math.sin(elapsed * 4 + i * 2) * 0.8;
   });
 }
